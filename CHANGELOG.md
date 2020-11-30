@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
   - Rename daemons to new Wazuh standard. ([#6912](https://github.com/wazuh/wazuh/pull/6912))
 
 - **API:**
+  - Added the `select` parameter to the `GET /security/users`, `GET /security/roles`, `GET /security/rules` and `GET /security/policies` endpoints. ([#6761](https://github.com/wazuh/wazuh/pull/6761))
   - Removed ruleset version from `GET /cluster/{node_id}/info` and `GET /manager/info` as it was deprecated. ([#6904](https://github.com/wazuh/wazuh/issues/6904))
   - Changed the `POST /groups` endpoint to specify the group name in a JSON body instead of in a query parameter. ([#6909](https://github.com/wazuh/wazuh/pull/6909))
 
