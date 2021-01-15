@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [v4.2.0]
 
+### Added
+
+- **API:**
+  - Added new endpoint to get logcollector stats from an agent. ([#7128](https://github.com/wazuh/wazuh/issues/7128))
+
+
 ### Changed
 
 - **Core:**
