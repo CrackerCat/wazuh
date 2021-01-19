@@ -1646,7 +1646,7 @@ ifneq (,$(filter ${OPTIMIZE_CPYTHON},YES yes y Y 1))
 CPYTHON_FLAGS=--enable-optimizations
 endif
 
-wpython: install_dependencies install_framework install_api install_mitre
+wpython: install_framework install_api install_mitre
 
 ifeq (${uname_S},Darwin)
 WLIBPYTHON=libpython3.8.dylib
@@ -1655,15 +1655,15 @@ WLIBPYTHON=libpython3.8.so.1.0
 endif
 
 install_python:
-    mkdir -p ${PREFIX}/framework
-    cp external/python.tar.gz ${PREFIX}/framework/python.tar.gz && tar -zxf ${PREFIX}/framework/python.tar.gz -C ${PREFIX}/framework && rm -rf ${PREFIX}/framework/python.tar.gz
-    find ${WPYTHON_DIR} -name "*${WLIBPYTHON}" -exec ln -f {} ${PREFIX}/lib/${WLIBPYTHON} \;
+	mkdir -p ${WPYTHON_DIR}
+	cp external/python.tar.gz ${WPYTHON_DIR}/python.tar.gz && tar -zxf ${WPYTHON_DIR}/python.tar.gz -C ${WPYTHON_DIR} && rm -rf ${WPYTHON_DIR}/python.tar.gz
+	find ${WPYTHON_DIR} -name "*${WLIBPYTHON}" -exec ln -f {} ${PREFIX}/lib/${WLIBPYTHON} \;
 
 python_dependencies := requirements.txt
 
-install_dependencies: install_python
-	${WPYTHON_DIR}/bin/pip3 install --upgrade pip --index-url=file://${ROUTE_PATH}/${EXTERNAL_CPYTHON}/Dependencies/simple
-	LD_LIBRARY_PATH="${PREFIX}/lib" LDFLAGS="-L${PREFIX}/lib" ${WPYTHON_DIR}/bin/pip3 install -r ../framework/${python_dependencies}  --index-url=file://${ROUTE_PATH}/${EXTERNAL_CPYTHON}/Dependencies/simple
+#install_dependencies: install_python
+#	${WPYTHON_DIR}/bin/pip3 install --upgrade pip --index-url=file://${ROUTE_PATH}/${EXTERNAL_CPYTHON}/Dependencies/simple
+#	LD_LIBRARY_PATH="${PREFIX}/lib" LDFLAGS="-L${PREFIX}/lib" ${WPYTHON_DIR}/bin/pip3 install -r ../framework/${python_dependencies}  --index-url=file://${ROUTE_PATH}/${EXTERNAL_CPYTHON}/Dependencies/simple
 
 install_framework: install_python
 	cd ../framework && ${WPYTHON_DIR}/bin/python3 setup.py clean --all install --prefix=${WPYTHON_DIR} --wazuh-version=$(shell cat VERSION) --install-type=${TARGET}
